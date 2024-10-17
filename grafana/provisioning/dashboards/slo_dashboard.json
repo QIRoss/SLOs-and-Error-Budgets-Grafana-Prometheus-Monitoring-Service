@@ -1,0 +1,36 @@
+{
+    "title": "SLO Monitoring Dashboard",
+    "panels": [
+      {
+        "title": "Request Count",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate(app_requests_total[1m]))",
+            "legendFormat": "Requests"
+          }
+        ]
+      },
+      {
+        "title": "Failure Count",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "sum(rate(app_failures_total[1m]))",
+            "legendFormat": "Failures"
+          }
+        ]
+      },
+      {
+        "title": "Response Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(app_response_time_seconds_bucket[1m])) by (le))",
+            "legendFormat": "Response Time (95th percentile)"
+          }
+        ]
+      }
+    ]
+  }
+  
